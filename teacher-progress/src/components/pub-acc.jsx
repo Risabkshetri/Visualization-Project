@@ -26,8 +26,8 @@ export default function PubAcc() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen bg-slate-100 md:px-10 lg:px-20">
-        <h1 className="text-3xl font-bold mt-7">Total Publications vs Accepted Publications</h1>
+    <div className="flex flex-col justify-center items-center h-screen dark:bg-black dark:text-gray-300 bg-slate-100 text-black md:px-10 lg:px-20">
+        <h1 className="text-3xl font-bold mt-7 dark:text-gray-200">Total Publications vs Accepted Publications</h1>
       <Pie
         data={state}
         options={{

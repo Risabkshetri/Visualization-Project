@@ -47,6 +47,12 @@ function App() {
     setDocumentTypeCounts(counts)
   }, [])
 
+  // Toggle dark mode
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode)
+    document.documentElement.classList.toggle('dark')
+  }
+
   const chartData = {
     labels: documentTypes,
     datasets: [
@@ -74,10 +80,14 @@ function App() {
     plugins: {
       legend: {
         position: 'right',
+        labels: {
+          color: darkMode ? 'white' : 'black'
+        }
       },
       title: {
         display: true,
         text: 'Teacher Progress Visualization',
+        color: darkMode ? 'white' : 'black'
       },
       tooltip: {
         callbacks: {
@@ -91,12 +101,24 @@ function App() {
         },
       },
     },
+    scales: {
+      x: {
+        ticks: {
+          color: darkMode ? 'white' : 'black'
+        }
+      },
+      y: {
+        ticks: {
+          color: darkMode ? 'white' : 'black'
+        }
+      }
+    }
   }
 
   const renderChart = () => {
     switch (chartType) {
       case 'pie':
-        return <Pie data={chartData} options={options} />
+        return <Pie data={chartData} options={options} className='m-4' />
       case 'bar':
         return <Bar data={chartData} options={options} />
       case 'line':
@@ -107,10 +129,10 @@ function App() {
   }
 
   return (
-    <div className={`h-screen ${darkMode ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'} flex flex-col items-center justify-center`}>
+    <div className="min-h-screen dark:bg-gray-900 dark:text-white bg-gray-100 text-black flex flex-col items-center justify-center">
       <button
-        className={`absolute top-0 right-0 m-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-2 px-4 rounded transition duration-500 ease-in-out`}
-        onClick={() => setDarkMode(!darkMode)}
+        className="absolute top-0 right-0 m-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-2 px-4 rounded transition duration-500 ease-in-out"
+        onClick={toggleDarkMode}
       >
         {darkMode ? <FiSun /> : <FiMoon />}
       </button>
@@ -134,15 +156,21 @@ function App() {
           Line Chart
         </button>
       </nav>
-      <h1 className="text-2xl font-bold text-center mb-4 text-blue-900">Teacher Progress Visualization</h1>
-      <div className={`w-full h-full mx-auto max-w-4xl max-h-96 ${darkMode ? 'bg-gray-700' : 'bg-white'} rounded shadow-md p-4`}>
+      <h1 className="text-2xl font-bold text-center mb-4 text-blue-900 dark:text-blue-300">Teacher Progress Visualization</h1>
+      <div className="flex flex-row justify-center items-center w-full h-full mx-auto max-w-4xl max-h-96 bg-white dark:bg-gray-800 rounded shadow-md p-4">
         {renderChart()}
       </div>
       <nav className="flex justify-center space-x-4 mt-4">
-        <Link to={'/teacher'}  className="bg-gradient-to-r from-blue-500 to-blue-700 hover:bg-gradient-to-r from-blue-700 to-blue-900 focus:outline-none text-white font-bold py-2 px-4 rounded transition duration-500 ease-in-out">
+        <Link 
+          to={'/teacher'}  
+          className="bg-gradient-to-r from-blue-500 to-blue-700 hover:bg-gradient-to-r from-blue-700 to-blue-900 focus:outline-none text-white font-bold py-2 px-4 rounded transition duration-500 ease-in-out"
+        >
           Teacher Details
         </Link>
-        <Link to={'/pub-acc'} className="bg-gradient-to-r from-green-500 to-green-700 hover:bg-gradient-to-r from-green-700 to-green-900 focus:outline-none text-white font-bold py-2 px-4 rounded transition duration-500 ease-in-out">
+        <Link 
+          to={'/pub-acc'} 
+          className="bg-gradient-to-r from-green-500 to-green-700 hover:bg-gradient-to-r from-green-700 to-green-900 focus:outline-none text-white font-bold py-2 px-4 rounded transition duration-500 ease-in-out"
+        >
           Accepted vs Published Papers
         </Link>
       </nav>
