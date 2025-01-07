@@ -5,5 +5,5 @@ import PubAcc from "./pub-acc";
 export{
     Teacher,
     HomePage,
-    PubAcc
+    PubAcc,
 }
